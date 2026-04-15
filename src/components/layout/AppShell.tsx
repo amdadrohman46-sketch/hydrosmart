@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const navItems = [
   { label: 'Dashboard', to: '/dashboard' },
@@ -11,24 +12,33 @@ const navItems = [
 
 export default function AppShell({ children }: PropsWithChildren) {
   const location = useLocation();
+  const { role, logout } = useAuth();
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white px-4 py-3">
-        <h1 className="font-semibold">HydroSmart</h1>
+    <div className="app-shell">
+      <header className="app-header">
+        <div>
+          <h1 className="app-title">HydroSmart</h1>
+          <small className="app-role">Role aktif: {role}</small>
+        </div>
+        <button type="button" onClick={logout}>
+          Logout
+        </button>
       </header>
-      <nav className="flex gap-2 overflow-x-auto border-b bg-white px-4 py-2 text-sm">
+
+      <nav className="app-nav">
         {navItems.map((item) => (
           <Link
             key={item.to}
             to={item.to}
-            className={location.pathname === item.to ? 'font-semibold text-blue-600' : 'text-slate-600'}
+            className={location.pathname === item.to ? 'app-nav-link active' : 'app-nav-link'}
           >
             {item.label}
           </Link>
         ))}
       </nav>
-      <main className="mx-auto max-w-5xl p-4">{children}</main>
+
+      <main className="app-content">{children}</main>
     </div>
   );
 }
