@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react';
-import { createHashRouter, Navigate } from 'react-router-dom';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
 import AppShell from '../components/layout/AppShell';
