@@ -1,8 +1,14 @@
 import type { PropsWithChildren } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
 
-const navItems = [
+type NavItem = {
+  label: string;
+  to: string;
+};
+
+const navItems: NavItem[] = [
   { label: 'Dashboard', to: '/dashboard' },
   { label: 'Prediction', to: '/prediction' },
   { label: 'Mitigation', to: '/mitigation' },
@@ -14,6 +20,9 @@ export default function AppShell({ children }: PropsWithChildren) {
   const location = useLocation();
   const { role, logout } = useAuth();
 
+  const getNavLinkClassName = (to: string) =>
+    location.pathname === to ? 'app-nav-link active' : 'app-nav-link';
+
   return (
     <div className="app-shell">
       <header className="app-header">
@@ -21,27 +30,15 @@ export default function AppShell({ children }: PropsWithChildren) {
           <h1 className="app-title">HydroSmart</h1>
           <small className="app-role">Role aktif: {role}</small>
         </div>
+
         <button type="button" onClick={logout}>
           Logout
         </button>
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white px-4 py-3">
-        <h1 className="font-semibold">HydroSmart</h1>
-        <small>Role: {role}</small>
-        <div>
-          <button type="button" onClick={logout}>
-            Logout
-          </button>
-        </div>
       </header>
 
-      <nav className="app-nav">
+      <nav className="app-nav" aria-label="Main navigation">
         {navItems.map((item) => (
-          <Link
-            key={item.to}
-            to={item.to}
-            className={location.pathname === item.to ? 'app-nav-link active' : 'app-nav-link'}
-          >
+          <Link key={item.to} to={item.to} className={getNavLinkClassName(item.to)}>
             {item.label}
           </Link>
         ))}
