@@ -1,14 +1,26 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../contexts/AuthContext';
 
+type LoginLocationState = {
+  from?: string;
+};
+
 export default function Login() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const { loginAs } = useAuth();
+  const { isAuthenticated, loginAs } = useAuth();
+
+  const state = location.state as LoginLocationState | null;
+  const nextPath = state?.from ?? '/dashboard';
+
+  if (isAuthenticated) {
+    return <Navigate to={nextPath} replace />;
+  }
 
   const handleLogin = (role: 'user' | 'admin') => {
     loginAs(role);
-    navigate('/dashboard', { replace: true });
+    navigate(nextPath, { replace: true });
   };
 
   return (

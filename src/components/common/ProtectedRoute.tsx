@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 type ProtectedRouteProps = PropsWithChildren<{
@@ -7,10 +7,11 @@ type ProtectedRouteProps = PropsWithChildren<{
 }>;
 
 export function ProtectedRoute({ children, adminOnly = false }: ProtectedRouteProps) {
+  const location = useLocation();
   const { isAuthenticated, role } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
   if (adminOnly && role !== 'admin') {

@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Prediction', to: '/prediction' },
   { label: 'Mitigation', to: '/mitigation' },
   { label: 'Profile', to: '/profile' },
-  { label: 'Admin', to: '/admin' },
+  { label: 'Admin', to: '/admin', adminOnly: true },
 ];
 
 export default function AppShell({ children }: PropsWithChildren) {
@@ -20,7 +20,7 @@ export default function AppShell({ children }: PropsWithChildren) {
       <header className="app-header">
         <div>
           <h1 className="app-title">HydroSmart</h1>
-          <small className="app-role">Role aktif: {role}</small>
+          <small className="app-role">Peran aktif: {role}</small>
         </div>
         <button type="button" onClick={logout}>
           Logout
@@ -28,15 +28,17 @@ export default function AppShell({ children }: PropsWithChildren) {
       </header>
 
       <nav className="app-nav">
-        {navItems.map((item) => (
-          <Link
-            key={item.to}
-            to={item.to}
-            className={location.pathname === item.to ? 'app-nav-link active' : 'app-nav-link'}
-          >
-            {item.label}
-          </Link>
-        ))}
+        {navItems
+          .filter((item) => !item.adminOnly || role === 'admin')
+          .map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={location.pathname === item.to ? 'app-nav-link active' : 'app-nav-link'}
+            >
+              {item.label}
+            </Link>
+          ))}
       </nav>
 
       <main className="app-content">{children}</main>
