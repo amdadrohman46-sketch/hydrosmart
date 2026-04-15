@@ -15,6 +15,15 @@ export default function AppShell({ children }: PropsWithChildren) {
   const { role, logout } = useAuth();
 
   return (
+    <div className="app-shell">
+      <header className="app-header">
+        <div>
+          <h1 className="app-title">HydroSmart</h1>
+          <small className="app-role">Role aktif: {role}</small>
+        </div>
+        <button type="button" onClick={logout}>
+          Logout
+        </button>
     <div className="min-h-screen bg-slate-50">
       <header className="border-b bg-white px-4 py-3">
         <h1 className="font-semibold">HydroSmart</h1>
