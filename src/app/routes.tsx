@@ -1,7 +1,8 @@
 import type { ReactElement } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
 import AppShell from '../components/layout/AppShell';
+import { useAuth } from '../contexts/AuthContext';
 import AdminDashboard from '../pages/AdminDashboard';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
@@ -14,8 +15,23 @@ function withShell(element: ReactElement) {
   return <AppShell>{element}</AppShell>;
 }
 
+function HomeRedirect() {
+  const { isAuthenticated } = useAuth();
+  return <Navigate to={isAuthenticated ? '/dashboard' : '/login'} replace />;
+}
+
+function NotFoundRoute() {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    return withShell(<NotFound />);
+  }
+
+  return <NotFound />;
+}
+
 export const appRouter = createHashRouter([
-  { path: '/', element: <Navigate to="/dashboard" replace /> },
+  { path: '/', element: <HomeRedirect /> },
   { path: '/login', element: <Login /> },
   {
     path: '/dashboard',
@@ -41,5 +57,5 @@ export const appRouter = createHashRouter([
       </ProtectedRoute>
     ),
   },
-  { path: '*', element: <NotFound /> },
+  { path: '*', element: <NotFoundRoute /> },
 ]);
