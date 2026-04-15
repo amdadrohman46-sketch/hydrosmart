@@ -3,6 +3,7 @@ import AppShell from '../components/layout/AppShell';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
 import AdminDashboard from '../pages/AdminDashboard';
 import Dashboard from '../pages/Dashboard';
+import Login from '../pages/Login';
 import Mitigation from '../pages/Mitigation';
 import NotFound from '../pages/NotFound';
 import Prediction from '../pages/Prediction';
@@ -14,6 +15,7 @@ function withShell(element: JSX.Element) {
 
 export const appRouter = createBrowserRouter([
   { path: '/', element: <Navigate to="/dashboard" replace /> },
+  { path: '/login', element: <Login /> },
   {
     path: '/dashboard',
     element: <ProtectedRoute>{withShell(<Dashboard />)}</ProtectedRoute>,
