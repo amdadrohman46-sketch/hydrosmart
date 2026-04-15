@@ -8,6 +8,7 @@
     "strict": true,
     "noEmit": true,
     "types": ["vite/client", "react", "react-dom"],
+    "types": ["vite/client"],
     "skipLibCheck": true
   },
   "include": ["src"]
