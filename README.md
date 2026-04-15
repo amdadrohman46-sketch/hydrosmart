@@ -38,7 +38,7 @@ npm run dev
 
 Aplikasi akan jalan di URL yang tampil di terminal (biasanya `http://localhost:5173`).
 
-> Routing sekarang pakai **createBrowserRouter** (React Router v6+ data router). Pastikan server/deployment kamu mengarahkan semua route ke `index.html` (SPA rewrite).
+> Routing sekarang pakai **hash router**, jadi URL akan berbentuk `/#/login`, `/#/dashboard`, dll. Ini sengaja supaya UI tetap muncul walau server web tidak support SPA fallback.
 
 ## Script penting
 
@@ -75,4 +75,4 @@ npm install
 npm run dev -- --host 0.0.0.0 --port 5173
 ```
 
-Lalu buka `http://localhost:5173/login` langsung untuk memastikan route login muncul.
+Lalu buka `http://localhost:5173/#/login` langsung untuk memastikan route login muncul.

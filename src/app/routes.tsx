@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
 import AppShell from '../components/layout/AppShell';
 import AdminDashboard from '../pages/AdminDashboard';
@@ -14,7 +15,7 @@ function withShell(element: ReactElement) {
   return <AppShell>{element}</AppShell>;
 }
 
-export const appRouter = createBrowserRouter([
+export const appRouter = createHashRouter([
   { path: '/', element: <Navigate to="/dashboard" replace /> },
   { path: '/login', element: <Login /> },
   {
