@@ -5,7 +5,7 @@ export default function NotFound() {
     <section>
       <h2 className="page-title">Halaman tidak ditemukan</h2>
       <p className="page-text">
-        Balik ke <Link to="/dashboard">dashboard</Link>.
+        Kembali ke <Link to="/dashboard">dashboard</Link>.
       </p>
     </section>
   );
