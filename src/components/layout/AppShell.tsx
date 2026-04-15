@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
 import { useAuth } from '../../contexts/AuthContext';
 
 const navItems = [
@@ -24,15 +25,6 @@ export default function AppShell({ children }: PropsWithChildren) {
         <button type="button" onClick={logout}>
           Logout
         </button>
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b bg-white px-4 py-3">
-        <h1 className="font-semibold">HydroSmart</h1>
-        <small>Role: {role}</small>
-        <div>
-          <button type="button" onClick={logout}>
-            Logout
-          </button>
-        </div>
       </header>
 
       <nav className="app-nav">
