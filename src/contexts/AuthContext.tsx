@@ -12,7 +12,7 @@ type AuthState = {
 const AuthContext = createContext<AuthState | null>(null);
 
 export function AuthProvider({ children }: PropsWithChildren) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [role, setRole] = useState<UserRole>('user');
 
   const value = useMemo<AuthState>(
@@ -23,7 +23,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
         setRole(nextRole);
         setIsAuthenticated(true);
       },
-      logout: () => setIsAuthenticated(false),
+      logout: () => {
+        setRole('user');
+        setIsAuthenticated(false);
+      },
     }),
     [isAuthenticated, role],
   );
