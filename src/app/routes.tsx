@@ -1,6 +1,8 @@
+import type { ReactElement } from 'react';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import AppShell from '../components/layout/AppShell';
 import { ProtectedRoute } from '../components/common/ProtectedRoute';
+import AppShell from '../components/layout/AppShell';
 import AdminDashboard from '../pages/AdminDashboard';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
@@ -9,11 +11,11 @@ import NotFound from '../pages/NotFound';
 import Prediction from '../pages/Prediction';
 import Profile from '../pages/Profile';
 
-function withShell(element: JSX.Element) {
+function withShell(element: ReactElement) {
   return <AppShell>{element}</AppShell>;
 }
 
-export const appRouter = createBrowserRouter([
+export const appRouter = createHashRouter([
   { path: '/', element: <Navigate to="/dashboard" replace /> },
   { path: '/login', element: <Login /> },
   {
